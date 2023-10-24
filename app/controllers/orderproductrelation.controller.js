@@ -1,5 +1,5 @@
 const OrderProductRelation = require("../models/orderproductrelation.model");
-const GlobalFun = require("../comman1/globalFun")
+const GlobalFun = require("../comman/globalFun")
 
 
 // Create and Save a new Customer
