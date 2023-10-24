@@ -1,5 +1,5 @@
 const ProductModel = require("../models/product.model");
-const GlobalFun = require("../comman/globalFun")
+const GlobalFun = require("../comman1/globalFun")
 
 
 // Create and Save a new Customer

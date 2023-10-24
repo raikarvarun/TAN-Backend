@@ -1,5 +1,5 @@
 const PaymentModel = require("../models/payment.model");
-const GlobalFun = require("../comman/globalFun")
+const GlobalFun = require("../comman1/globalFun")
 
 // Create and Save a new Customer
 exports.create = (req, res) => {
