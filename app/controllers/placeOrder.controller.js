@@ -14,6 +14,7 @@ exports.create = (req, res) => {
         message: "Content can not be empty!"
       });
     }
+    console.log(req.body);
     //edit customerAmount 
     CustomerModel.findById(req.body.order.customerID, (err, data) => {
           if (err) {
@@ -74,7 +75,7 @@ exports.create = (req, res) => {
           }
     });
 
-
+    console.log("working fine");
     
     //Edit ProductVersion
     var temppronos = req.body.productNos;
@@ -94,6 +95,7 @@ exports.create = (req, res) => {
             });
           }
         } else {
+          console.log(data.res);
           var data1 = new ProductVersion(data.res);
           var dataid = data.id;
           if(req.body.order.orderType==1){
@@ -111,7 +113,7 @@ exports.create = (req, res) => {
             data1.productQuntity = data1.productQuntity+ data.newProductQuntity;
           }
           
-          ProductVersion.updateById(
+          ProductVersion.updateById( req.user.adminID,
             dataid,
             data1,
             (err, data) => {
@@ -137,7 +139,7 @@ exports.create = (req, res) => {
 
     }
     
-
+    console.log("working fine 1");
     // AddPayment
     const payment = new PaymentModel({
       paymentType   : req.body.payment.paymentType,
@@ -215,5 +217,7 @@ exports.create = (req, res) => {
         
       
     });
+
+    console.log("working fine 2");
   };
 

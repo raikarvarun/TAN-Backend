@@ -63,13 +63,13 @@ ProductVersion.getAll = (adminID,  result) => {
 
 
 
-ProductVersion.updateById = (adminID,id,   product, result) => {
+ProductVersion.updateById = (adminID, id,   product, result) => {
   sql.query(
     "UPDATE productversion SET productType = ?, productPrice = ?, productQuntity = ? ,productImage = ?, productName = ?, openingQuantity = ? ,atprice = ?, salePrice = ?, purchasePrice = ? WHERE productNo = ? and adminID = ?",
     [product.productType,product.productPrice,product.productQuntity,product.productImage,product.productName,product.openingQuantity,product.atprice,product.salePrice,product.purchasePrice, id , adminID],
     (err, res) => {
       if (err) {
-        // console.log("error: ", err);
+        console.log("error: ", err);
         result(null, err);
         return;
       }
