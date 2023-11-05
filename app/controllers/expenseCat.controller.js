@@ -1,4 +1,4 @@
-const DealerModel = require("../models/dealer.model");
+const MainModel = require("../models/expenseCat.model");
 const GlobalFun = require("../comman/globalFun")
 // Create and Save a new Customer
 exports.create = (req, res) => {
@@ -6,19 +6,18 @@ exports.create = (req, res) => {
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!"
-    });
+    }); 
   }
-
-  // Create a Customer
-  const dealer = new DealerModel({
-    dealerFirstName : req.body.dealerFirstName,
-    dealerLastName : req.body.dealerLastName,
-    dealerMobile : req.body.dealerMobile,
+  
+  // Create a data
+  const dataModel = new MainModel({
+    expenseCategaryName : req.body.expenseCategaryName,
     adminID : req.user.adminID
+
   });
 
-  // Save Customer in the database
-  DealerModel.create(dealer, (err, data) => {
+  // Save data in the database
+  MainModel.create(dataModel, (err, data) => {
     if (err)
       res.status(500).send({
         message:
@@ -35,8 +34,7 @@ exports.create = (req, res) => {
 // Retrieve all Tutorials from the database (with condition).
 exports.findAll = (req, res) => {
   const adminid = req.user.adminID;
-
-  DealerModel.getAll(adminid, (err, data) => {
+  MainModel.getAll(adminid, (err, data) => {
     if (err)
       res.status(500).send({
         message:
@@ -51,7 +49,7 @@ exports.findAll = (req, res) => {
 
 // // Find a single Customer by Id
 // exports.findOne = (req, res) => {
-//   DealerModel.findById(req.params.id, (err, data) => {
+//   CustomerModel.findById(req.params.id, (err, data) => {
 //     if (err) {
 //       if (err.kind === "not_found") {
 //         res.status(404).send({
@@ -68,7 +66,7 @@ exports.findAll = (req, res) => {
 
 // // find all published Tutorials
 // exports.findAllPublished = (req, res) => {
-//   DealerModel.getAllPublished((err, data) => {
+//   CustomerModel.getAllPublished((err, data) => {
 //     if (err)
 //       res.status(500).send({
 //         message:
@@ -89,9 +87,9 @@ exports.update = (req, res) => {
 
   // console.log(req.body);
 
-  DealerModel.updateById(
-    req.params.id,
-    new DealerModel(req.body),
+  CustomerModel.updateById(
+    req.query.customerID,
+    new CustomerModel(req.body),
     (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
@@ -103,14 +101,18 @@ exports.update = (req, res) => {
             message: "Error updating Customer with id " + req.params.id
           });
         }
-      } else res.send(data);
+      } else {
+        const appVersion = GlobalFun.genrate(req.user.adminID);
+        const ans = GlobalFun.genResponse(200 , "Sucess" , appVersion , data)
+        res.send(ans);
+      }
     }
   );
 };
 
 // // Delete a Customer with the specified id in the request
 // exports.delete = (req, res) => {
-//   DealerModel.remove(req.params.id, (err, data) => {
+//   CustomerModel.remove(req.params.id, (err, data) => {
 //     if (err) {
 //       if (err.kind === "not_found") {
 //         res.status(404).send({
@@ -127,7 +129,7 @@ exports.update = (req, res) => {
 
 // // Delete all Tutorials from the database.
 // exports.deleteAll = (req, res) => {
-//   DealerModel.removeAll((err, data) => {
+//   CustomerModel.removeAll((err, data) => {
 //     if (err)
 //       res.status(500).send({
 //         message:

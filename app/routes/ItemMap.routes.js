@@ -1,19 +1,18 @@
-const productController = require("../controllers/product.controller");
 module.exports = app => {
-  const productController = require("../controllers/product.controller");
+  const Controller = require("../controllers/ItemMap.controller");
 
   var router = require("express").Router();
   const verifyToken = require("../middleware/auth")
   router.use(verifyToken);
   
   // Create a new product
-  router.post("/insert", productController.create);
+  router.post("/insert", Controller.create);
 
-  // Retrieve all product
-  router.get("/all", productController.findAll);
+  //Retrieve all product
+  router.get("/all", Controller.findAll);
 
   // Update a product with id
-  router.put("/update/:id", productController.update);
+  //router.put("/update/:id", Controller.update);
 
   // // Retrieve a single product with id
   // router.get("/:id", productController.findOne);
@@ -24,5 +23,5 @@ module.exports = app => {
   // // Delete all product
   // router.delete("/", productController.deleteAll);
 
-  app.use('/api/product', router);
+  app.use('/api/itemmap', router);
 };

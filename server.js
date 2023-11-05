@@ -24,16 +24,19 @@ app.get("/", (req, res) => {
 
 require("./app/routes/customer.routes.js")(app);
 require("./app/routes/payment.routes")(app);
-require("./app/routes/product.routes.js")(app);
 require("./app/routes/productversion.routes.js")(app);
-require("./app/routes/dealer.routes.js")(app);
 require("./app/routes/order.routes.js")(app);
 require("./app/routes/admin.routes.js")(app);
 require("./app/routes/appconfig.routes.js")(app);
-require("./app/routes/item.routes.js")(app);
 require("./app/routes/orderproductrelation.routes.js")(app);
 require("./app/routes/placeOrder.routes.js")(app);
 require("./app/routes/paymentType.routes.js")(app);
+require("./app/routes/expenseCat.routes.js")(app);
+require("./app/routes/expenseItem.routes.js")(app);
+require("./app/routes/ItemMap.routes.js")(app);
+require("./app/routes/ItemUnit.routes.js")(app);
+require("./app/routes/Rl_expense_cat_item.routes.js")(app);
+
 
 
 

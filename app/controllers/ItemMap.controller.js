@@ -1,24 +1,26 @@
-const ProductModel = require("../models/product.model");
+const DataModel = require("../models/ItemMap.model");
 const GlobalFun = require("../comman/globalFun")
-
-
 // Create and Save a new Customer
 exports.create = (req, res) => {
   // Validate request
   if (!req.body) {
     res.status(400).send({
-      message: "Content can not be empty!" 
+      message: "Content can not be empty!"
     });
   }
-
+  
   // Create a Customer
-  const product = new ProductModel({
-    productName : req.body.productName,
-    adminID : req.user.adminID
+  const newData = new DataModel({
+    baseUnitID : req.body.baseUnitID,
+    secondUnitID : req.body.secondUnitID,
+    rate: req.body.rate,
+    adminID : req.user.adminID,
+    
+
   });
 
   // Save Customer in the database
-  ProductModel.create(product, (err, data) => {
+  DataModel.create(newData, (err, data) => {
     if (err)
       res.status(500).send({
         message:
@@ -34,9 +36,8 @@ exports.create = (req, res) => {
 
 // Retrieve all Tutorials from the database (with condition).
 exports.findAll = (req, res) => {
-  const adminID = req.user.adminID
-  
-  ProductModel.getAll(adminID, (err, data) => {
+  const adminid = req.user.adminID;
+  DataModel.getAll(adminid, (err, data) => {
     if (err)
       res.status(500).send({
         message:
@@ -51,7 +52,7 @@ exports.findAll = (req, res) => {
 
 // // Find a single Customer by Id
 // exports.findOne = (req, res) => {
-//   ProductModel.findById(req.params.id, (err, data) => {
+//   CustomerModel.findById(req.params.id, (err, data) => {
 //     if (err) {
 //       if (err.kind === "not_found") {
 //         res.status(404).send({
@@ -68,7 +69,7 @@ exports.findAll = (req, res) => {
 
 // // find all published Tutorials
 // exports.findAllPublished = (req, res) => {
-//   ProductModel.getAllPublished((err, data) => {
+//   CustomerModel.getAllPublished((err, data) => {
 //     if (err)
 //       res.status(500).send({
 //         message:
@@ -89,9 +90,9 @@ exports.update = (req, res) => {
 
   // console.log(req.body);
 
-  ProductModel.updateById(
-    req.params.id,
-    new ProductModel(req.body),
+  CustomerModel.updateById(
+    req.query.customerID,
+    new CustomerModel(req.body),
     (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
@@ -103,14 +104,18 @@ exports.update = (req, res) => {
             message: "Error updating Customer with id " + req.params.id
           });
         }
-      } else res.send(data);
+      } else {
+        const appVersion = GlobalFun.genrate(req.user.adminID);
+        const ans = GlobalFun.genResponse(200 , "Sucess" , appVersion , data)
+        res.send(ans);
+      }
     }
   );
 };
 
 // // Delete a Customer with the specified id in the request
 // exports.delete = (req, res) => {
-//   ProductModel.remove(req.params.id, (err, data) => {
+//   CustomerModel.remove(req.params.id, (err, data) => {
 //     if (err) {
 //       if (err.kind === "not_found") {
 //         res.status(404).send({
@@ -127,7 +132,7 @@ exports.update = (req, res) => {
 
 // // Delete all Tutorials from the database.
 // exports.deleteAll = (req, res) => {
-//   ProductModel.removeAll((err, data) => {
+//   CustomerModel.removeAll((err, data) => {
 //     if (err)
 //       res.status(500).send({
 //         message:
@@ -135,32 +140,4 @@ exports.update = (req, res) => {
 //       });
 //     else res.send({ message: `All Tutorials were deleted successfully!` });
 //   });
-// };
-
-
-
-// Create and Save a new Customer
-// exports.createWithoutResponse = (req , temp) => {
-  
-//   let ans ="Varun"; 
-//   // Create a Customer
-//   const product = new ProductModel({
-//     productName : req.productName,
-//     adminID : temp.adminID
-//   });
-//   // Save Customer in the database
-//   ProductModel.create(product, (err, data) => {
-//     if (err)
-//       {
-//         return err
-//       }
-//     else {
-      
-//       const appVersion = GlobalFun.genrate(temp.adminID);
-//       ans = GlobalFun.genResponse(200 , "Sucess" , appVersion , data);
-//       console.log(ans);
-//     }
-//   });
-
-//   return ans;
 // };

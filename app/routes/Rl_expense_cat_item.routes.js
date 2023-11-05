@@ -1,18 +1,18 @@
 module.exports = app => {
-  const itemController = require("../controllers/item.controller");
+  const Controller = require("../controllers/Rl_expense_cat_item.controller");
 
   var router = require("express").Router();
   const verifyToken = require("../middleware/auth")
   router.use(verifyToken);
   
   // Create a new product
-  router.post("/insert", itemController.create);
+  router.post("/insert", Controller.create);
 
-  // Retrieve all product
-  //router.get("/all", itemController.findAll);
+  //Retrieve all product
+  router.get("/all", Controller.findAll);
 
   // Update a product with id
-  //router.put("/update/:id", itemController.update);
+  //router.put("/update/:id", Controller.update);
 
   // // Retrieve a single product with id
   // router.get("/:id", productController.findOne);
@@ -23,5 +23,5 @@ module.exports = app => {
   // // Delete all product
   // router.delete("/", productController.deleteAll);
 
-  app.use('/api/item', router);
+  app.use('/api/rlexpensecatitem', router);
 };
