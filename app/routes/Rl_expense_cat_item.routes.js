@@ -11,6 +11,8 @@ module.exports = app => {
   //Retrieve all product
   router.get("/all", Controller.findAll);
 
+  
+
   // Update a product with id
   //router.put("/update/:id", Controller.update);
 

@@ -8,7 +8,7 @@ exports.login = (req, res) => {
         message: "Content can not be empty!"
       });
     }
-    console.log(req.body)
+    
     // Create a Customer
     const login = new Admin({
       adminEmail  : req.body.adminEmail,
@@ -25,7 +25,7 @@ exports.login = (req, res) => {
         });
       else{
         res.send(data);
-        console.log(data);
+        
       } 
     });
   };

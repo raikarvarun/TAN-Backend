@@ -11,8 +11,8 @@ exports.create = (req, res) => {
   
   // Create a Customer 
   const newData = new DataModel({
-    fullName : req.body.fullName,
-    shortName : req.body.shortName,
+    fullName : req.body.FullName,
+    shortName : req.body.ShortName,
     adminID : req.user.adminID
 
   });

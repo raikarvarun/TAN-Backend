@@ -8,6 +8,7 @@ const DataModel= function(arg) {
 };
 
 DataModel.create = (newData, result) => {
+  
   sql.query("INSERT INTO ItemUnit SET ?", newData, (err, res) => {
     if (err) {
       // console.log("error: ", err);
@@ -16,7 +17,7 @@ DataModel.create = (newData, result) => {
     }
 
     // console.log("created tutorial: ", { id: res.insertId, ...newCustomer });
-    result(null, { unitId: res.insertId, ...newData });
+    result(null, { unitId: res.insertId, fullName : newData.fullName , shortName: newData.shortName  });
   });
 };
 
