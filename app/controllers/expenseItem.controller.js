@@ -11,8 +11,8 @@ exports.create = (req, res) => {
   
   // Create a Customer
   const newData = new DataModel({
-    expenseItemName : req.body.expenseItemName,
-    openingAmount : req.body.openingAmount,
+    expenseItemName : req.body.ExpenseItemName,
+    openingAmount : req.body.OpeningAmount,
     adminID : req.user.adminID
     
 

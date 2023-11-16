@@ -19,6 +19,7 @@ module.exports=  verifyToken = (req, res, next) => {
     req.user = decoded;
     console.log(decoded)
   } catch (err) {
+    console.log(err);
     return res.send(GlobalFun.genResponse(401 , "Invalid Token" , null , null));
   }
   return next();

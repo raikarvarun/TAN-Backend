@@ -11,7 +11,7 @@ exports.create = (req, res) => {
   
   // Create a data
   const dataModel = new MainModel({
-    expenseCategaryName : req.body.expenseCategaryName,
+    expenseCategaryName : req.body.ExpenseCategaryName,
     adminID : req.user.adminID
 
   });
