@@ -9,14 +9,14 @@ module.exports = app => {
   // Create a new Customer
   // router.post("/insert", customerController.create);
 
-  // Retrieve all Customer
-  // router.get("/all", customerController.findAll);
+  //Retrieve all Customer
+  //router.get("/all", appconfigController.findAll);
 
   // Update a Customer with id
   router.put("/update", appconfigController.update);
 
   // Retrieve a single Customer with id
-  router.get("/get", appconfigController.findOne);
+  router.get("/all", appconfigController.getAll);
 
   //
   // // Delete a Customer with id

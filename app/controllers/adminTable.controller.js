@@ -1,65 +1,35 @@
-const Admin = require("../models/admin.model");
+const AdminTable = require("../models/adminTable.model");
 
 
-exports.login = (req, res) => {
-    // Validate request
-    if (!req.body) {
-      res.status(400).send({
-        message: "Content can not be empty!"
+
+
+
+
+exports.create = (req, res) => {
+  // Validate request
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+  }
+
+  const data = new AdminTable({
+    adminEmail  : req.body.adminEmail,
+    adminPassword  : req.body.adminPassword,
+    adminToken  : req.body.adminToken,
+    isAdmin  : req.body.isAdmin,
+
+  });
+
+  AdminTable.create(data, (err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Customer."
       });
-    }
-    
-    
-    const login = new Admin({
-      adminEmail  : req.body.adminEmail,
-      adminPassword  : req.body.adminPassword,
-      adminToken : req.body.adminToken
-    });
-  
-    
-    Admin.login(login, (err, data) => {
-      if (err)
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while creating the Customer."
-        });
-      else{
-        res.send(data);
-        
-      } 
-    });
-  };
-
-
-
-
-// exports.create = (req, res) => {
-//   // Validate request
-//   if (!req.body) {
-//     res.status(400).send({
-//       message: "Content can not be empty!"
-//     });
-//   }
-
-//   // Create a Customer
-//   const data = new Admin({
-//     adminEmail  : req.body.adminEmail,
-//     adminPassword  : req.body.adminPassword,
-//     adminToken  : req.body.adminToken,
-//     isAdmin  : req.body.isAdmin,
-
-//   });
-
-//   // Save Customer in the database
-//   Admin.create(data, (err, data) => {
-//     if (err)
-//       res.status(500).send({
-//         message:
-//           err.message || "Some error occurred while creating the Customer."
-//       });
-//     else res.send(data);
-//   });
-// };
+    else res.send(data);
+  });
+};
 
 // // Retrieve all Tutorials from the database (with condition).
 // exports.findAll = (req, res) => {

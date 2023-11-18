@@ -2,36 +2,32 @@ const sql = require("../config/db.js");
 
 // constructor
 const AppConfig = function(arg) {
-  this.appVersion = arg.appVersion;
+  this.appconfigID = arg.appconfigID;
+  this.appconfigName = arg.appconfigName;
+  this.appconfigVersion = arg.appconfigVersion;
 };
 
 
 
-AppConfig.findById = (id, result) => {
-  sql.query(`SELECT appVersion FROM appconfig WHERE adminID = ${id}`, (err, res) => {
+AppConfig.getAll = (id, result) => {
+  sql.query(`SELECT * FROM appConfig WHERE adminID = ${id}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
       return;
     }
 
-    if (res.length) {
-      //console.log("found tutorial: ", res[0]);
-      const data = { "data" : res[0]}
-      result(null, data);
-      return;
-    }
-
-    // not found Customer with the id
-    result({ kind: "not_found" }, null);
+   
+      result(null, res);
+      
   });
 };
 
 
 AppConfig.updateById = (adminID, appconfig, result) => {
   sql.query(
-    "UPDATE appconfig SET appVersion = ? WHERE adminID = ?",
-    [appconfig.appVersion , adminID],
+    "UPDATE appConfig SET appconfigVersion = ? WHERE adminID = ? AND appconfigName = ?",
+    [appconfig.appconfigVersion , adminID , appconfig.appconfigName],
     (err, res) => {
       if (err) {
         // console.log("error: ", err);

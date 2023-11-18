@@ -1,8 +1,9 @@
 const AppConfig = require("../models/appconfig.model");
+const GlobalFun = require("../comman/globalFun")
 
-// Find a single Customer by Id
-exports.findOne = (req, res) => {
-  AppConfig.findById(req.user.adminID, (err, data) => {
+
+exports.getAll = (req, res) => {
+  AppConfig.getAll(req.user.adminID, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
@@ -10,24 +11,34 @@ exports.findOne = (req, res) => {
         });
       } else {
         res.status(500).send({
-          message: "Error retrieving Customer with id " 
+          message: "Error retrieving appconfig with id " 
         });
       }
-    } else res.send(data);
+    } else{
+      const ans = GlobalFun.genResponse(200 , "Sucess" , null , data)
+      res.send(ans);
+
+    } 
   });
 };
 
-// Update a Customer identified by the id in the request
-exports.update = (req) => {
+exports.update = (req ) => {
+
+  const newData = new AppConfig({
+    appconfigName : req.body.appconfigName,
+    appconfigVersion: req.body.appconfigVersion
+  });
+
   AppConfig.updateById(
     req.user.adminID,
-    new AppConfig(req.body),
+    newData,
     (err, data) => {
       if(err){
         return err 
       }
       else
-       return data
+        return data;
+      
     }
   );
 };

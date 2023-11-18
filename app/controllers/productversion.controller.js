@@ -33,8 +33,28 @@ exports.create = (req, res) => {
       });
     else {
       const appVersion = GlobalFun.genrate(req.user.adminID);
-      const ans = GlobalFun.genResponse(200 , "Sucess" , appVersion , data)
-      res.send(ans);
+      const newData = new AppConfig({
+        appconfigName : "product",
+        appconfigVersion: appVersion
+      });
+      
+      AppConfig.updateById(
+        req.user.adminID,
+        newData,
+        (err1, data1) => {
+          let appconfig;
+          if(err1){
+            appconfig = err1; 
+          }
+          else
+          {
+            appconfig =data1;
+          }
+          
+          res.send(GlobalFun.genResponse(200 , "Sucess" , [appconfig] , data));
+
+        }
+      );
     }
   });
 };

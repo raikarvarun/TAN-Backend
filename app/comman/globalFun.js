@@ -1,13 +1,45 @@
 
-const appconfigController = require("../controllers/appconfig.controller");
-exports.genrate = (adminID)=>{
+
+// async function fetchData(adminID  ,newData) {
+    
+    
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             AppConfig.updateById(
+//                 adminID,
+//                 newData,
+//                 (err1, data1) => {
+//                     if (err1) {
+//                         resolve(err1);
+//                     }
+        
+//                     else {
+//                         resolve(data1);
+//                     }
+        
+//                 }
+//             );
+ 
+//         }, 5000);
+//     });
+
+    
+// }
+
+exports.genrate = ()=>{
     const chars ='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const length = 6 ;
-    var result = '';
-    for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
-    let req = {"user" : {"adminID" : adminID } , "body" : {"appVersion" : result}}
-    appconfigController.update(req)
-    return result;
+    var newApiVersion = '';
+    for (var i = length; i > 0; --i) newApiVersion += chars[Math.floor(Math.random() * chars.length)];
+    //return ans;
+    // const newData = new AppConfig({
+    //     appconfigName : appconName,
+    //     appconfigVersion: newApiVersion
+    // });
+    //var ans = await fetchData(adminID , newData);
+    
+    return newApiVersion;
+    
 }
 
 exports.genResponse = (status1 , msg, apiVersion,data)=>{

@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 
 
 // constructor
-const Admin = function(arg) {
+const AdminTable = function(arg) {
   this.adminEmail = arg.adminEmail;
   this.adminPassword = arg.adminPassword;
   this.adminToken = arg.adminToken ; 
@@ -11,67 +11,21 @@ const Admin = function(arg) {
 
 };
 
-// Admin.create = (newData, result) => {
-//   sql.query("INSERT INTO adminTable SET ?", newData, (err, res) => {
-//     if (err) {
-//       // console.log("error: ", err);
-//       result(err, null);
-//       return;
-//     }
-
-//     // console.log("created tutorial: ", { id: res.insertId, ...newCustomer });
-//     result(null, { adminID: res.insertId, ...newData });
-//   });
-// };
-
-
-Admin.login = (newData, result) => {
-  console.log(newData.adminEmail)
-  sql.query("SELECT * from adminTable where adminEmail = ?", newData.adminEmail, (err, res) => {
+AdminTable.create = (newData, result) => {
+  sql.query("INSERT INTO adminTable SET ?", newData, (err, res) => {
     if (err) {
       // console.log("error: ", err);
       result(err, null);
       return;
     }
-    if(newData.adminPassword == res[0].adminPassword){
-      const token = jwt.sign(
-        { adminID: res[0].adminID},
-        process.env.TOKEN_KEY,
-        {
-          expiresIn: "24h",
-        }
-      );
-      newData.adminToken = token ; 
-      Admin.setToken(newData , res[0].adminID,(err1, data1) => {
-        if (err1){
-          result(err, null);
-          return;
-        }
-        else {
-          result(null , {data1});
-        }
-      });
-    }
-    else{
-      result(err , null )
-    }
-    
 
-  });
-};
-
-
-Admin.setToken = (newData, adminID,  result) => {
-  sql.query("UPDATE adminTable SET adminToken = ? WHERE adminID = ?" , [newData.adminToken , adminID], (err, res) => {
-    if (err) {
-      // console.log("error: ", err);
-      result(err, null);
-      return;
-    }
     // console.log("created tutorial: ", { id: res.insertId, ...newCustomer });
-    result(null, { adminID, ...newData });    
+    result(null, { adminID: res.insertId, ...newData });
   });
 };
+
+
+
 
 // Customer.findById = (id, result) => {
 //   sql.query(`SELECT * FROM customer WHERE CustomerID = ${id}`, (err, res) => {
@@ -157,4 +111,4 @@ Admin.setToken = (newData, adminID,  result) => {
 
 
 
-module.exports = Admin;
+module.exports = AdminTable;

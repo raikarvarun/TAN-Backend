@@ -28,9 +28,29 @@ exports.create = (req, res) => {
           err.message || "Some error occurred while creating the Customer."
       });
     else {
-      const appVersion = GlobalFun.genrate(req.user.adminID);
-      const ans = GlobalFun.genResponse(200 , "Sucess" , appVersion , data)
-      res.send(ans);
+      const appVersion = GlobalFun.genrate();
+      const newData = new AppConfig({
+        appconfigName : "orderProductRelation",
+        appconfigVersion: appVersion
+      });
+      
+      AppConfig.updateById(
+        req.user.adminID,
+        newData,
+        (err1, data1) => {
+          let appconfig;
+          if(err1){
+            appconfig = err1; 
+          }
+          else
+          {
+            appconfig =data1;
+          }
+          
+          res.send(GlobalFun.genResponse(200 , "Sucess" , [appconfig] , data));
+
+        }
+      );
     }
   });
 };
@@ -52,34 +72,6 @@ exports.findAll = (req, res) => {
   });
 };
 
-// // Find a single Customer by Id
-// exports.findOne = (req, res) => {
-//   ProductModel.findById(req.params.id, (err, data) => {
-//     if (err) {
-//       if (err.kind === "not_found") {
-//         res.status(404).send({
-//           message: `Not found Tutorial with id ${req.params.id}.`
-//         });
-//       } else {
-//         res.status(500).send({
-//           message: "Error retrieving Customer with id " + req.params.id
-//         });
-//       }
-//     } else res.send(data);
-//   });
-// };
-
-// // find all published Tutorials
-// exports.findAllPublished = (req, res) => {
-//   ProductModel.getAllPublished((err, data) => {
-//     if (err)
-//       res.status(500).send({
-//         message:
-//           err.message || "Some error occurred while retrieving tutorials."
-//       });
-//     else res.send(data);
-//   });
-// };
 
 // Update a Customer identified by the id in the request
 exports.update = (req, res) => {
@@ -111,59 +103,4 @@ exports.update = (req, res) => {
   );
 };
 
-// // Delete a Customer with the specified id in the request
-// exports.delete = (req, res) => {
-//   ProductModel.remove(req.params.id, (err, data) => {
-//     if (err) {
-//       if (err.kind === "not_found") {
-//         res.status(404).send({
-//           message: `Not found Tutorial with id ${req.params.id}.`
-//         });
-//       } else {
-//         res.status(500).send({
-//           message: "Could not delete Customer with id " + req.params.id
-//         });
-//       }
-//     } else res.send({ message: `Tutorial was deleted successfully!` });
-//   });
-// };
 
-// // Delete all Tutorials from the database.
-// exports.deleteAll = (req, res) => {
-//   ProductModel.removeAll((err, data) => {
-//     if (err)
-//       res.status(500).send({
-//         message:
-//           err.message || "Some error occurred while removing all tutorials."
-//       });
-//     else res.send({ message: `All Tutorials were deleted successfully!` });
-//   });
-// };
-
-
-
-// Create and Save a new Customer
-// exports.createWithoutResponse = (req , temp) => {
-  
-//   let ans ="Varun"; 
-//   // Create a Customer
-//   const product = new ProductModel({
-//     productName : req.productName,
-//     adminID : temp.adminID
-//   });
-//   // Save Customer in the database
-//   ProductModel.create(product, (err, data) => {
-//     if (err)
-//       {
-//         return err
-//       }
-//     else {
-      
-//       const appVersion = GlobalFun.genrate(temp.adminID);
-//       ans = GlobalFun.genResponse(200 , "Sucess" , appVersion , data);
-//       console.log(ans);
-//     }
-//   });
-
-//   return ans;
-// };

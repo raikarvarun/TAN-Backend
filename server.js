@@ -36,6 +36,10 @@ require("./app/routes/expenseItem.routes.js")(app);
 require("./app/routes/ItemMap.routes.js")(app);
 require("./app/routes/ItemUnit.routes.js")(app);
 require("./app/routes/Rl_expense_cat_item.routes.js")(app);
+require("./app/routes/Rl_expense_cat_item.routes.js")(app);
+require("./app/routes/adminTable.routes.js")(app);
+
+
 
 
 
