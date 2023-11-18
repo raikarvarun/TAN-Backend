@@ -33,7 +33,6 @@ require("./app/routes/placeOrder.routes.js")(app);
 require("./app/routes/paymentType.routes.js")(app);
 require("./app/routes/expenseCat.routes.js")(app);
 require("./app/routes/expenseItem.routes.js")(app);
-require("./app/routes/ItemMap.routes.js")(app);
 require("./app/routes/ItemUnit.routes.js")(app);
 require("./app/routes/Rl_expense_cat_item.routes.js")(app);
 require("./app/routes/Rl_expense_cat_item.routes.js")(app);
