@@ -15,8 +15,36 @@ exports.getAll = (req, res) => {
         });
       }
     } else{
-      const ans = GlobalFun.genResponse(200 , "Sucess" , null , data)
-      res.send(ans);
+      if(req.user.isAdmin===-1){
+        const ans = GlobalFun.genResponse(200 , "Sucess" , null , data)
+        res.send(ans);
+      }
+      else{
+        AppConfig.getAll(req.user.userID, (err1, data1) => {
+          if (err1) {
+            if (err1.kind === "not_found") {
+              res.status(404).send({
+                message: `Not found Appversion with id.`
+              });
+            } else {
+              res.status(500).send({
+                message: "Error retrieving appconfig with id " 
+              });
+            }
+          } else{
+              for(var i = 0 ; i<data.length ; i++){
+                 if(data[i].appconfigName==="setting"){
+                    data[i].appconfigVersion = data1[0].appconfigVersion;
+                 }
+              }
+              const ans = GlobalFun.genResponse(200 , "Sucess" , null , data)
+              res.send(ans);
+          }
+        
+        });
+
+          //end
+      }
 
     } 
   });

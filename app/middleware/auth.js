@@ -1,9 +1,11 @@
 const jwt = require("jsonwebtoken");
 const GlobalFun = require("../comman/globalFun")
+const sql = require("../config/db.js");
 
 const config = process.env;
 
-module.exports=  verifyToken = (req, res, next) => {
+
+module.exports=  verifyToken = async (req, res, next) => {
   const token =
     req.body.token || req.query.token || req.params.token || req.headers["x-access-token"];
   
@@ -17,7 +19,13 @@ module.exports=  verifyToken = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, config.TOKEN_KEY);
     req.user = decoded;
-    console.log(decoded)
+    req.user.userID = req.user.adminID;
+    if(req.user.isAdmin!=-1)
+      req.user.adminID = req.user.isAdmin;
+
+    console.info(req.user);
+
+    
   } catch (err) {
     console.log(err);
     return res.send(GlobalFun.genResponse(401 , "Invalid Token" , null , null));

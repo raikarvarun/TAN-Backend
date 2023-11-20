@@ -6,7 +6,7 @@ module.exports = app => {
   const verifyToken = require("../middleware/auth")
   router.use(verifyToken);
 
-  //router.get("/all", mainController.findAll);
+  router.get("/all", mainController.findAll);
 
   // Create a new Customer
   router.post("/insert", mainController.create);

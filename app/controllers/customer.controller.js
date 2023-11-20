@@ -5,7 +5,7 @@ const AppConfig = require("../models/appconfig.model");
 // Create and Save a new Customer
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body) {
+  if (!req.body) { 
     res.status(400).send({
       message: "Content can not be empty!"
     });

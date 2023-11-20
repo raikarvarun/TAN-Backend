@@ -12,7 +12,7 @@ module.exports = app => {
   router.get("/all", orderController.findAll);
 
   // Update a Customer with id
-  router.put("/update/:id", orderController.update);
+  //router.put("/update/:id", orderController.update);
 
   // // Retrieve a single Customer with id
   // router.get("/:id", orderController.findOne);

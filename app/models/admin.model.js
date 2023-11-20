@@ -35,7 +35,10 @@ Admin.login = (newData, result) => {
     }
     if(newData.adminPassword == res[0].adminPassword){
       const token = jwt.sign(
-        { adminID: res[0].adminID},
+        { 
+          adminID: res[0].adminID,
+          isAdmin : res[0].isAdmin
+        },
         process.env.TOKEN_KEY,
         {
           expiresIn: "24h",

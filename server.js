@@ -43,9 +43,6 @@ require("./app/routes/adminTable.routes.js")(app);
 
 
 
-
-
-
 // set port, listen for requests
 app.listen(process.env.LISTEN_PORT, () => {
   console.log(`Server is running on port ${process.env.LISTEN_PORT}.`);
