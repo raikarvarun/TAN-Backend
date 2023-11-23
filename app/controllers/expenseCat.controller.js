@@ -1,5 +1,6 @@
 const MainModel = require("../models/expenseCat.model");
 const GlobalFun = require("../comman/globalFun")
+const AppConfig = require("../models/appconfig.model");
 // Create and Save a new Customer
 exports.create = (req, res) => {
   // Validate request
