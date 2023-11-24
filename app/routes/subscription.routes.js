@@ -7,13 +7,13 @@ module.exports = app => {
   router.use(verifyToken);
 
   // Create a new Customer
-  router.post("/insert", Controller.create);
+  router.get("/getsuborderbyid", Controller.getOrderDataByID);
 
   // Retrieve all Customer
   router.get("/checkeligible", Controller.checkEligible);
 
   // Update a Customer with id
-  router.put("/update/:id", Controller.update);
+  // router.put("/update/:id", Controller.update);
 
   // // Retrieve a single Customer with id
   // router.get("/:id", customerController.findOne);
