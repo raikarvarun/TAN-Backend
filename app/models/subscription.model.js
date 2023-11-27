@@ -26,16 +26,17 @@ Subscription.checkEligible = (adminid, mobileno, result) => {
 		if (res.length > 0) {
 			ans.customer = res[0];
 			sql.query(`select productName , orderQuantity,orderSellingPrice from (select * from orderProductRelation where orderID in  (select orderID from ordertable where orderType = 8 and adminID= ${adminid})) as orderdb1 left join productversion on orderdb1.productNo= productversion.productNo;`, (err1, res1) => {
-
+				
 
 				ans.products = res1;
-				result(null, ans);
+				
+				result(null, [ans]);
 			});
 		}
 		else
 			result(null, []);
 
-		result(null, [ans]);
+		//result(null, [ans]);
 	});
 };
 
