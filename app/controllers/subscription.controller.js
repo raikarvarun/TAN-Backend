@@ -16,12 +16,12 @@ exports.checkEligible = (req, res) => {
             });
         else {
             const ans = GlobalFun.genResponse(200, "Sucess", null, data)
-            if (data.length == 1) {
-                res.send({ "iseligible": 1 });
-            }
-            else
-                res.send({ "iseligible": 0 });
-
+            // if (data.length == 1) {
+            //     res.send({ "iseligible": 1 });
+            // }
+            // else
+            //     res.send({ "iseligible": 0 });
+            res.send(data);
         }
     });
 };
