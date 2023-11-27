@@ -2,7 +2,7 @@ const sql = require("../config/db.js");
 
 // constructor
 const Subscription = function () {
-	
+
 };
 
 
@@ -21,8 +21,21 @@ Subscription.checkEligible = (adminid, mobileno, result) => {
 			return;
 		}
 
-		console.log("customer: ", res);
-		result(null, res);
+
+		let ans = {};
+		if (res.length > 0) {
+			ans.customer = res[0];
+			sql.query(`select productName , orderQuantity,orderSellingPrice from (select * from orderProductRelation where orderID in  (select orderID from ordertable where orderType = 8 and adminID= ${adminid})) as orderdb1 left join productversion on orderdb1.productNo= productversion.productNo;`, (err1, res1) => {
+
+
+				ans.products = res1;
+				result(null, ans);
+			});
+		}
+		else
+			result(null, []);
+
+		result(null, [ans]);
 	});
 };
 
@@ -41,12 +54,11 @@ Subscription.getOrderDataByID = (adminid, mobileno, result) => {
 			let productNos = [];
 			let orderQuantitys = [];
 			let orderSellingPrices = [];
-			if(res1!=null) 
-			{
-				for(var i= 0 ; i<res1.length; i++){
+			if (res1 != null) {
+				for (var i = 0; i < res1.length; i++) {
 					productNos.push(res1[i].productNo);
-                    orderQuantitys.push(res1[i].orderQuantity);
-                    orderSellingPrices.push(res1[i].orderSellingPrice);
+					orderQuantitys.push(res1[i].orderQuantity);
+					orderSellingPrices.push(res1[i].orderSellingPrice);
 				}
 			}
 			ans.productNos = productNos;
@@ -54,7 +66,7 @@ Subscription.getOrderDataByID = (adminid, mobileno, result) => {
 			ans.orderSellingPrices = orderSellingPrices;
 			result(null, ans);
 		});
-		
+
 
 	});
 };
