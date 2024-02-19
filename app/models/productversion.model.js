@@ -16,7 +16,7 @@ const ProductVersion  = function(arg) {
 };
 
 ProductVersion .create = (newProduct, result) => {
-  sql.query("INSERT INTO productversion SET ?", newProduct, (err, res) => {
+  sql.query("INSERT INTO product SET ?", newProduct, (err, res) => {
     if (err) {
       // console.log("error: ", err);
       result(err, null);
@@ -29,7 +29,7 @@ ProductVersion .create = (newProduct, result) => {
 };
 
 ProductVersion.findById = (id, newProductQuntity , newProductsaleprice, result) => {
-  sql.query(`SELECT * FROM productversion WHERE productNo = ${id}`, (err, res) => {
+  sql.query(`SELECT * FROM product WHERE productNo = ${id}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -49,7 +49,7 @@ ProductVersion.findById = (id, newProductQuntity , newProductsaleprice, result) 
 ProductVersion.getAll = (adminID,  result) => {
   
 
-  sql.query("SELECT * FROM productversion where adminID = ?",adminID, (err, res) => {
+  sql.query("SELECT * FROM product where adminID = ?",adminID, (err, res) => {
     if (err) {
       
       result(null, err);
@@ -65,7 +65,7 @@ ProductVersion.getAll = (adminID,  result) => {
 
 ProductVersion.updateById = (adminID, id,   product, result) => {
   sql.query(
-    "UPDATE productversion SET productType = ?, productPrice = ?, productQuntity = ? ,productImage = ?, productName = ?, openingQuantity = ? ,atprice = ?, salePrice = ?, purchasePrice = ? WHERE productNo = ? and adminID = ?",
+    "UPDATE product SET productType = ?, productPrice = ?, productQuntity = ? ,productImage = ?, productName = ?, openingQuantity = ? ,atprice = ?, salePrice = ?, purchasePrice = ? WHERE productNo = ? and adminID = ?",
     [product.productType,product.productPrice,product.productQuntity,product.productImage,product.productName,product.openingQuantity,product.atprice,product.salePrice,product.purchasePrice, id , adminID],
     (err, res) => {
       if (err) {
@@ -87,7 +87,7 @@ ProductVersion.updateById = (adminID, id,   product, result) => {
 };
 
 ProductVersion.remove = (adminID,id, result) => {
-  sql.query("DELETE FROM productversion WHERE productNo = ? and adminID = ?", [id,adminID], (err, res) => {
+  sql.query("DELETE FROM product WHERE productNo = ? and adminID = ?", [id,adminID], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
