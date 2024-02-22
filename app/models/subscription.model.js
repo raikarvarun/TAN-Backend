@@ -25,7 +25,7 @@ Subscription.checkEligible = (adminid, mobileno, result) => {
 		let ans = {};
 		if (res.length > 0) {
 			ans.customer = res[0];
-			sql.query(`select productName , orderQuantity,orderSellingPrice from (select * from orderProductRelation where orderID in  (select orderID from ordertable where orderType = 8 and adminID= ${adminid})) as orderdb1 left join product on orderdb1.productNo= product.productNo;`, (err1, res1) => {
+			sql.query(`select productName , orderQuantity,orderSellingPrice from (select * from orderProductRelation where orderID in  (select orderID from ordertable where orderType = 8 and adminID= ${adminid} and customerID=${ans.customer.customerID})) as orderdb1 left join product on orderdb1.productNo= product.productNo;`, (err1, res1) => {
 				ans.products = [];
 				for(var item in res1) {
 					ans.products.push(res1[item]);
