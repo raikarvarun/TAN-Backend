@@ -81,7 +81,7 @@ Customer.updateById = (id, customer, result) => {
       }
  
       // console.log("updated tutorial: ", { id: id, ...customer });
-      result(null, { id: id, ...customer });
+      result(null, { customerID: id, ...customer });
     }
   );
 };
