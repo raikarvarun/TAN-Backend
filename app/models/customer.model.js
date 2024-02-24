@@ -63,7 +63,7 @@ Customer.getAll = (adminid, result) => {
 
 
 Customer.updateById = (id, customer, result) => {
-
+  
   sql.query(
     "UPDATE customer SET customerName = ?, customerTypeID = ?, customerMobile = ? , customerAddress=?, customerOpeningAmount=?,TotalAmount=? WHERE customerID = ?",
     [customer.customerName, customer.customerTypeID , customer.customerMobile , customer.customerAddress, customer.customerOpeningAmount,customer.TotalAmount, id],
@@ -79,7 +79,7 @@ Customer.updateById = (id, customer, result) => {
         result({ kind: "not_found" }, null);
         return;
       }
-
+ 
       // console.log("updated tutorial: ", { id: id, ...customer });
       result(null, { id: id, ...customer });
     }

@@ -92,13 +92,14 @@ exports.update = (req, res) => {
   // console.log(req.body);
 
   CustomerModel.updateById(
-    req.query.customerID,
+    req.params.id,
     new CustomerModel(req.body),
     (err, data) => {
-      if (err) {
+      
+      if (err) { 
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found Tutorial with id ${req.params.id}.`
+            message: `Not found Customer with id ${req.params.id}.`
           });
         } else {
           res.status(500).send({
