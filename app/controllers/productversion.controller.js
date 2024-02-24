@@ -75,7 +75,7 @@ exports.findAll = (req, res) => {
       res.send(ans);
     }
   });
-};
+}; 
 
 // // Find a single Customer by Id
 // exports.findOne = (req, res) => {
@@ -126,17 +126,39 @@ exports.update = (req, res) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found Tutorial with id ${req.params.id}.`
+            message: `Not found Product with id ${req.params.id}.`
           });
         } else {
           res.status(500).send({
-            message: "Error updating Customer with id " + req.params.id
+            message: "Error updating Product with id " + req.params.id
           });
         }
       } else {
+        
         const appVersion = GlobalFun.genrate(req.user.adminID);
-        const ans = GlobalFun.genResponse(200 , "Sucess" , appVersion , data)
-        res.send(ans);
+        const newData = new AppConfig({
+          appconfigName : "product",
+          appconfigVersion: appVersion
+        });
+        AppConfig.updateById(
+          req.user.adminID,
+          newData,
+          (err1, data1) => {
+            let appconfig;
+            if(err1){
+              appconfig = err1; 
+            }
+            else
+            {
+              appconfig =data1;
+            }
+            
+            res.send(GlobalFun.genResponse(200 , "Sucess" , [appconfig] , data));
+  
+          }
+        );
+
+        
       }
     }
   );
