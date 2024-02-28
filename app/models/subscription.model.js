@@ -42,9 +42,9 @@ Subscription.checkEligible = (adminid, mobileno, result) => {
 	});
 };
 
-Subscription.checkIfCancelEligible = (adminid, orderDate, result) => {
+Subscription.checkIfCancelEligible = (adminid, mobileNo ,  orderDate , orderType, result) => {
 
-	sql.query(`select * from ordertable where CAST(orderDate AS DATE)="${orderDate}" and adminID = ${adminid}; )`, (err, res) => {
+	sql.query(`select * from ordertable where CAST(orderDate AS DATE)="${orderDate}" and adminID = ${adminid} and orderType=${orderType} ; `, (err, res) => {
 		if (err) {
 			// console.log("error: ", err);
 			result(null, err);

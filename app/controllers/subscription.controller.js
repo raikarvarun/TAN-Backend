@@ -7,6 +7,7 @@ const AppConfig = require("../models/appconfig.model");
 exports.checkEligible = (req, res) => {
     const adminid = req.user.adminID;
     const mobileNo = req.query.mobileno;
+    
 
     MainModel.checkEligible(adminid, mobileNo, (err, data) => {
         if (err)
@@ -29,8 +30,13 @@ exports.checkEligible = (req, res) => {
 exports.checkIfCancelEligible = (req, res) => {
     const adminid = req.user.adminID;
     const mobileNo = req.query.mobileno;
+    const orderType = req.query.ordertype;
+    const orderDate = req.query.orderdate;
 
-    MainModel.checkIfCancelEligible(adminid, mobileNo, (err, data) => {
+    
+
+
+    MainModel.checkIfCancelEligible(adminid, mobileNo , orderDate , orderType, (err, data) => {
         if (err)
             res.status(500).send({
                 message:
