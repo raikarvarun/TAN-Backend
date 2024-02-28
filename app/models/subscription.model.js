@@ -19,7 +19,7 @@ Subscription.checkEligible = (adminid, mobileno, result) => {
 			// console.log("error: ", err);
 			result(null, err);
 			return;
-		}
+		} 
 
 
 		let ans = {};
@@ -42,6 +42,21 @@ Subscription.checkEligible = (adminid, mobileno, result) => {
 	});
 };
 
+Subscription.checkIfCancelEligible = (adminid, orderDate, result) => {
+
+	sql.query(`select * from ordertable where CAST(orderDate AS DATE)="${orderDate}" and adminID = ${adminid}; )`, (err, res) => {
+		if (err) {
+			// console.log("error: ", err);
+			result(null, err);
+			return;
+		} 
+
+
+		result(null, res);
+
+		//result(null, [ans]);
+	});
+};
 
 
 Subscription.getOrderDataByID = (adminid, mobileno, result) => {

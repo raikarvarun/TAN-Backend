@@ -47,7 +47,7 @@ ProductVersion.findById = (id, newProductQuntity , newProductsaleprice, result) 
 };
 
 ProductVersion.getAll = (adminID,  result) => {
-  
+   
 
   sql.query("SELECT * FROM product where adminID = ?",adminID, (err, res) => {
     if (err) {

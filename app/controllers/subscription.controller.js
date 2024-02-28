@@ -14,7 +14,29 @@ exports.checkEligible = (req, res) => {
                 message:
                     err.message || "Some error occurred while retrieving tutorials."
             });
-        else {
+        else { 
+            const ans = GlobalFun.genResponse(200, "Sucess", null, data)
+            // if (data.length == 1) {
+            //     res.send({ "iseligible": 1 });
+            // }
+            // else
+            //     res.send({ "iseligible": 0 });
+            res.send(data);
+        }
+    });
+};
+
+exports.checkIfCancelEligible = (req, res) => {
+    const adminid = req.user.adminID;
+    const mobileNo = req.query.mobileno;
+
+    MainModel.checkIfCancelEligible(adminid, mobileNo, (err, data) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving tutorials."
+            });
+        else { 
             const ans = GlobalFun.genResponse(200, "Sucess", null, data)
             // if (data.length == 1) {
             //     res.send({ "iseligible": 1 });

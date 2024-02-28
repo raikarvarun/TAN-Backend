@@ -12,6 +12,8 @@ module.exports = app => {
   // Retrieve all Customer
   router.get("/checkeligible", Controller.checkEligible);
 
+  router.get("/checkifcanceleligible", Controller.checkIfCancelEligible);
+
   // Update a Customer with id
   // router.put("/update/:id", Controller.update);
 

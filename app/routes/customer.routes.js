@@ -14,7 +14,7 @@ module.exports = app => {
 
   // Update a Customer with id
   router.put("/update/:id", customerController.update);
-
+ 
   // // Retrieve a single Customer with id
   // router.get("/:id", customerController.findOne);
   //
