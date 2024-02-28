@@ -44,7 +44,7 @@ Subscription.checkEligible = (adminid, mobileno, result) => {
 
 Subscription.checkIfCancelEligible = (adminid, mobileNo ,  orderDate , orderType, result) => {
 
-	sql.query(`select * from ordertable where CAST(orderDate AS DATE)="${orderDate}" and adminID = ${adminid} and orderType=${orderType} ; `, (err, res) => {
+	sql.query(`select * from customer where adminID = ${adminid} and customerMobile=${mobileNo}; `, (err, res) => {
 		if (err) {
 			// console.log("error: ", err);
 			result(null, err);
@@ -52,10 +52,23 @@ Subscription.checkIfCancelEligible = (adminid, mobileNo ,  orderDate , orderType
 		} 
 
 
-		result(null, res);
+		sql.query(`select * from ordertable where CAST(orderDate AS DATE)="${orderDate}" and adminID = ${adminid} and orderType=${orderType}  and customerID = ${res[0].customerID}; `, (err1, res1) => {
+			if (err1) {
+				// console.log("error: ", err);
+				result(null, err1);
+				return;
+			} 
+	
+	
+			result(null, res1);
+	
+			//result(null, [ans]);
+		});
 
 		//result(null, [ans]);
 	});
+
+	
 };
 
 Subscription.deleteSubscription = (adminid, orderID ,  paymentID , result) => {
