@@ -58,6 +58,40 @@ Subscription.checkIfCancelEligible = (adminid, mobileNo ,  orderDate , orderType
 	});
 };
 
+Subscription.deleteSubscription = (adminid, orderID ,  paymentID , result) => {
+
+	sql.query(`delete from orderProductRelation where orderID="${orderID}" and adminID = ${adminid} ; `, (err, res) => {
+		if (err) {
+			// console.log("error: ", err);
+			result(null, err);
+			return;
+		} 
+
+		sql.query(`delete from ordertable where orderID="${orderID}" and adminID = ${adminid} ; `, (err1, res1) => {
+			if (err1) {
+				// console.log("error: ", err);
+				result(null, err1);
+				return;
+			} 
+
+			sql.query(`delete from payment where paymentID="${paymentID}" and adminID = ${adminid} ; `, (err2, res2) => {
+				if (err2) {
+					// console.log("error: ", err);
+					result(null, err2);
+					return;
+				} 
+				result(null, res2);
+	
+			});
+
+
+		});
+	
+		
+
+		//result(null, [ans]);
+	});
+};
 
 Subscription.getOrderDataByID = (adminid, mobileno, result) => {
 

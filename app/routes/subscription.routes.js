@@ -14,6 +14,11 @@ module.exports = app => {
 
   router.get("/checkifcanceleligible", Controller.checkIfCancelEligible);
 
+
+
+  router.delete("/deletesubscription", Controller.deleteSubscription);
+
+
   // Update a Customer with id
   // router.put("/update/:id", Controller.update);
 
