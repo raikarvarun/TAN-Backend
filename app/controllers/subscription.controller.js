@@ -31,7 +31,7 @@ exports.checkIfCancelEligible = (req, res) => {
     const adminid = req.user.adminID;
     const mobileNo = req.query.mobileno;
     const orderType = req.query.ordertype;
-    const orderDate = req.query.orderdate;
+    let orderDate = req.query.orderdate;
 
     
 
