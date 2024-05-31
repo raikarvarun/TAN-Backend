@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true })); /* bodyParser.urlencoded() is d
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Saurav application. testing done" });
+  res.json({ message: "Welcome to Saurav application. migration done" });
 });
 
 require("./app/routes/customer.routes.js")(app);
