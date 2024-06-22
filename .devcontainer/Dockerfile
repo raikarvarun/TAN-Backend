@@ -1,5 +1,10 @@
 FROM node:22-alpine
 
-RUN pwd
+WORKDIR /usr/app
 
-RUN echo "$PWD"
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
