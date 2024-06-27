@@ -1,8 +1,17 @@
 FROM node:22-alpine
 
-WORKDIR /app
+RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
 
-COPY . .
+WORKDIR /home/node/app
+
+COPY package*.json ./
+
+USER node
 
 RUN npm install
- 
+
+COPY --chown=node:node . .
+
+EXPOSE 3031
+
+CMD [ "node", "server.js" ]
